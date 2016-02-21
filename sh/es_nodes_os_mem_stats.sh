@@ -6,15 +6,15 @@ function _es_nodes_os
 {
     local es_url=${1:-$LOGBOOK_ES_01_URL}
 
-    # "cluster_name" : "logbook",
     #     "name" : "data-172.20.87.28",
-    #         "actual_free_in_bytes" : 227705470976,
-    #         "actual_used_in_bytes" : 43046252544
+    #         "free_in_bytes" : 227705470976,
+    #         "used_in_bytes" : 43046252544
 
     curl -s "$es_url/_nodes/stats/os?pretty" \
         | grep -v "cluster_name" \
-        | grep -E "actual_used_in_bytes|actual_free_in_bytes|name" \
-        | sed 's/[,:"]//g'
+        | grep -E "used_in_bytes|free_in_bytes|name" \
+        | sed 's/[,:"]//g' \
+        | awk '{nl5 = NR % 5; if (nl5 != 0 && nl5 != 4) print $0}'
 }
 
 function _es_nodes_os_metrics
@@ -48,11 +48,11 @@ function _es_nodes_os_metrics
                 esac
                 continue
                 ;;
-            actual_free_in_bytes*)
+            free_in_bytes*)
                 free_memory=$2
                 continue
                 ;;
-            actual_used_in_bytes*)
+            used_in_bytes*)
                 used_memory=$2
                 ;;
         esac
