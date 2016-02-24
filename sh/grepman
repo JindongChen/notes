@@ -1,0 +1,4 @@
+#!/bin/bash
+# grep specific command in long man page
+
+man $1 | less -p "^       $1 "
