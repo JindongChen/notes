@@ -1,0 +1,24 @@
+[alias]
+        st = status
+        ci = commit
+        info = remote -v show -n
+        vi = difftool -y -x vimdiff
+        mt = mergetool -y --tool vi
+        br = branch
+        co = checkout
+        ls = log --name-status --pretty=format:'%C(yellow)%h%C(red)%d%Creset %s %C(blue)- %an, %ar%Creset'
+        hist = log --graph --pretty=format:'%C(yellow)%h%C(red)%d%Creset %s %C(blue)- %an, %ar%Creset'
+        tail = log --oneline --decorate --graph -10
+        loggrep = log --decorate --all-match -i --grep
+        pick = cherry-pick
+        ff = merge --ff-only
+        noff = merge --no-ff
+        tr = branch --set-upstream-to
+        url = "!git remote -v | perl -pe 's,(.*\\sgit@|.*://|\\.git .*),,g; s,:,/,' | sort -u"
+[core]
+        editor = vim
+[color]
+        ui = true
+[user]
+        name = JindongChen
+        email = alex.chenjindong@gmail.com
